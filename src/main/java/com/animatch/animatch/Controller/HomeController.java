@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -41,9 +42,13 @@ public class HomeController {
 
         List<RecommendationDTO> topRecommendation = recommendationService.showRecommendation();
 
-        List<RecommendationDTO> firstFiveRecommendations = topRecommendation.size() > 5
-                ? topRecommendation.subList(0, 5)
-                : topRecommendation;
+//        List<RecommendationDTO> firstFiveRecommendations = topRecommendation.size() > 5
+//                ? topRecommendation.subList(0, 5)
+//                : topRecommendation;
+
+        Collections.shuffle(topRecommendation);
+        List<RecommendationDTO> firstFiveRecommendations =
+                topRecommendation.stream().limit(5).toList();
 
         model.addAttribute("recommendAnime", firstFiveRecommendations);
         model.addAttribute("heroAnime", heroAnime);
