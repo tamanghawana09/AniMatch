@@ -1,9 +1,11 @@
 package com.animatch.animatch.Controller;
 
+import com.animatch.animatch.DTO.RecommendationDTO;
 import com.animatch.animatch.DTO.TopAnimeDTO;
 import com.animatch.animatch.Entity.Genre;
 import com.animatch.animatch.Interface.AnimeListService;
 import com.animatch.animatch.Interface.GenreService;
+import com.animatch.animatch.Interface.RecommendationService;
 import com.animatch.animatch.Interface.TopAnimeService;
 import com.animatch.animatch.Service.AnimeService;
 import com.animatch.animatch.Service.GenreServiceImpl;
@@ -27,15 +29,22 @@ public class HomeController {
 
     @Autowired
     private TopAnimeService topAnimeService;
+    @Autowired
+    private RecommendationService recommendationService;
 
     @GetMapping("/")
     public String getDashboard(Model model){
 
         List<TopAnimeDTO> topList = topAnimeService.showTopAnime();
+        TopAnimeDTO heroAnime = topList.get(new Random().nextInt(Math.min(30, topList.size())));
 
-        TopAnimeDTO heroAnime = topList.get(new Random().nextInt(Math.min(20, topList.size())));
+        List<RecommendationDTO> topRecommendation = recommendationService.showRecommendation();
 
+        List<RecommendationDTO> firstFiveRecommendations = topRecommendation.size() > 5
+                ? topRecommendation.subList(0, 5)
+                : topRecommendation;
 
+        model.addAttribute("recommendAnime", firstFiveRecommendations);
         model.addAttribute("heroAnime", heroAnime);
         model.addAttribute("genres",genreService.getAllGenres());
         return "dashboard";
