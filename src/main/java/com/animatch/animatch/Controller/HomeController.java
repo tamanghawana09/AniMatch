@@ -30,6 +30,8 @@ public class HomeController {
     private RecommendationService recommendationService;
     @Autowired
     private AiringAnimeService airingAnimeService;
+    @Autowired
+    private MagazineService magazineService;
 
     @GetMapping("/")
     public String getDashboard(Model model){
@@ -58,6 +60,11 @@ public class HomeController {
     public String airing(Model model){
         model.addAttribute("airingAnime", airingAnimeService.showAiringAnime());
         return "airing";
+    }
+    @GetMapping("/magazines")
+    public String magazine(Model model){
+        model.addAttribute("magazine",magazineService.showMagazines());
+        return "magazines";
     }
 
 }
