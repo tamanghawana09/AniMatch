@@ -12,9 +12,9 @@
         <ul class="nav-links">
             <li><a th:href="@{/browse}">Browse</a></li>
             <li><a th:href="@{/airing}">Airing</a></li>
-            <li><a href="#">Popular</a></li>
+            <li><a th:href="@{/upcoming}">Upcoming</a></li>
             <li><a th:href="@{/magazines}">Magazines</a></li>
-            <li><a href="#">Community</a></li>
+
         </ul>
         <div class="nav-right">
             <button class="btn-search">⌕</button>
@@ -39,7 +39,7 @@
                     <div class="play-icon"></div>
                     Watch Now
                 </a>
-                <a class="btn-outline" th:href="${heroAnime.url}" target="_blank">Browse Catalog</a>
+                <a class="btn-outline logo-design" th:href="${heroAnime.url}" target="_blank">Browse Catalog</a>
             </div>
             <div class="hero-stats">
                 <div class="stat">

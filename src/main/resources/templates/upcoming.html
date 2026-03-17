@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AniMatch - Airing </title>
+    <title>AniMatch - Upcoming </title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -14,7 +14,6 @@
         <li><a th:href="@{/airing}">Airing</a></li>
         <li><a th:href="@{/upcoming}">Upcoming</a></li>
         <li><a th:href="@{/magazines}">Magazines</a></li>
-
     </ul>
     <div class="nav-right">
         <button class="btn-search">⌕</button>
@@ -28,9 +27,9 @@
             <div class="badge-dot"></div>
             EXPLORE THE COLLECTION
         </div>
-        <h1 class="browse-title">Airing <span>Anime</span></h1>
+        <h1 class="browse-title">Browse <span>Anime</span></h1>
         <div class="browse-anime-grid">
-            <div class="browse-anime-card" th:each="anime : ${airingAnime}">
+            <div class="browse-anime-card" th:each="anime : ${upcoming}">
                 <div class="browse-anime-thumb">
                     <img th:src="${anime.images.jpg.largeImageUrl}" th:alt="${anime.title}" />
                     <div class="browse-anime-rating-badge" th:classappend="${anime.score == null} ? 'no-score'">

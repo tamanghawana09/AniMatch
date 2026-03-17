@@ -33,6 +33,8 @@ public class HomeController {
     private AiringAnimeService airingAnimeService;
     @Autowired
     private MagazineService magazineService;
+    @Autowired
+    private UpComingService upComingService;
 
     @GetMapping("/")
     public String getDashboard(Model model){
@@ -76,6 +78,11 @@ public class HomeController {
     public String recommendation(Model model){
         model.addAttribute("recommend", recommendationService.showRecommendation());
         return "recommendation";
+    }
+    @GetMapping("/upcoming")
+    public String upcoming(Model model){
+        model.addAttribute("upcoming",upComingService.showUpComingAnime());
+        return "upcoming";
     }
 
 }
