@@ -3,10 +3,7 @@ package com.animatch.animatch.Controller;
 import com.animatch.animatch.DTO.RecommendationDTO;
 import com.animatch.animatch.DTO.TopAnimeDTO;
 import com.animatch.animatch.Entity.Genre;
-import com.animatch.animatch.Interface.AnimeListService;
-import com.animatch.animatch.Interface.GenreService;
-import com.animatch.animatch.Interface.RecommendationService;
-import com.animatch.animatch.Interface.TopAnimeService;
+import com.animatch.animatch.Interface.*;
 import com.animatch.animatch.Service.AnimeService;
 import com.animatch.animatch.Service.GenreServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,8 @@ public class HomeController {
     private TopAnimeService topAnimeService;
     @Autowired
     private RecommendationService recommendationService;
+    @Autowired
+    private AiringAnimeService airingAnimeService;
 
     @GetMapping("/")
     public String getDashboard(Model model){
@@ -53,6 +52,12 @@ public class HomeController {
     public String browse(Model model) {
         model.addAttribute("animeList", animeListService.browse());
         return "browse";
+    }
+
+    @GetMapping("/airing")
+    public String airing(Model model){
+        model.addAttribute("airingAnime", airingAnimeService.showAiringAnime());
+        return "airing";
     }
 
 }
