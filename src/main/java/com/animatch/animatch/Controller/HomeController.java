@@ -72,4 +72,10 @@ public class HomeController {
         return "magazines";
     }
 
+    @GetMapping("/recommendations")
+    public String recommendation(Model model){
+        model.addAttribute("recommend", recommendationService.showRecommendation());
+        return "recommendation";
+    }
+
 }

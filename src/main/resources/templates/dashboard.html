@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav>
-        <div class="logo">AniMatch</div>
+        <div class="logo"><a class="logo-design" th:href="@{/}">AniMatch</a></div>
         <ul class="nav-links">
             <li><a th:href="@{/browse}">Browse</a></li>
             <li><a th:href="@{/airing}">Airing</a></li>
@@ -100,7 +100,7 @@
     <section class="section">
         <div class="section-header">
             <div class="section-title">Recommended Anime</div>
-            <a class="see-all" href="#">See All →</a>
+            <a class="see-all" th:href="@{/recommendations}">See All →</a>
         </div>
         <div class="anime-grid">
             <div th:each="recommend: ${recommendAnime}">

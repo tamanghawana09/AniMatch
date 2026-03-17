@@ -41,6 +41,10 @@ nav {
      letter-spacing: 0.08em;
      color: #fff;
    }
+ .logo-design{
+     text-decoration: none;
+     color: white;
+ }
    .logo span { color: var(--crimson); }
 
    .nav-links {
