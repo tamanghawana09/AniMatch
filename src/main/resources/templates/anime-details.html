@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Anime Details</title>
+</head>
+<body>
+
+<h1 th:text="${anime.title}"></h1>
+
+<img th:src="${anime.imageUrl}" width="200"/>
+
+<p th:text="${anime.synopsis}"></p>
+
+<p>Episodes: <span th:text="${anime.episodes}"></span></p>
+
+<p>Score: <span th:text="${anime.score}"></span></p>
+
+<p>Status: <span th:text="${anime.status}"></span></p>
+
+<p>Season: <span th:text="${anime.season}"></span></p>
+
+</body>
+</html>
