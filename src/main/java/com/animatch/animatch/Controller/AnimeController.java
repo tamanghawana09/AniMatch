@@ -23,4 +23,5 @@ public class AnimeController {
         model.addAttribute("anime",anime);
         return "anime-details";
     }
+
 }

@@ -84,5 +84,4 @@ public class HomeController {
         model.addAttribute("upcoming",upComingService.showUpComingAnime());
         return "upcoming";
     }
-
 }

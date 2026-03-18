@@ -25,7 +25,7 @@ public class RecommendationDTO {
     @Setter
     public static class Entry{
         @JsonProperty("mal_id")
-        private int malId;
+        private Integer malId;
         private String title;
         private String url;
 

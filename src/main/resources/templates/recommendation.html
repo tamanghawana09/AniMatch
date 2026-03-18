@@ -31,13 +31,15 @@
         <h1 class="browse-title">Recommendation<span> Mania</span></h1>
         <div class="browse-anime-grid">
             <div class="browse-anime-card" th:each="anime : ${recommend}" target="_blank">
-                <div class="browse-anime-thumb">
-                    <img th:src="${anime.entry[0].images.jpg.largeImageUrl}" alt="anime-image" class="thumb-art"/>
+                <a th:href="${anime.entry[0].url}" target="_blank">
+                    <div class="browse-anime-thumb">
+                        <img th:src="${anime.entry[0].images.jpg.largeImageUrl}" alt="anime-image" class="thumb-art"/>
 
-                </div>
-                <div class="browse-anime-info">
-                    <div class="browse-anime-name" th:text="${anime.entry[0].title}"></div>
-                </div>
+                    </div>
+                    <div class="browse-anime-info">
+                        <div class="browse-anime-name" th:text="${anime.entry[0].title}"></div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

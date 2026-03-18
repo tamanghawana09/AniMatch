@@ -70,7 +70,7 @@
                 <div class="card-art">
                     <div class="card-art-circles"></div>
                     <div class="card-art-lines"></div>
-                    <img th:src="${heroAnime.largeImageUrl}" alt="anime-image" />
+                    <img th:src="${heroAnime.largeImageUrl}" alt="anime-image" style="width:100%;"/>
 
                 </div>
                 <div class="card-overlay">
@@ -104,14 +104,15 @@
         </div>
         <div class="anime-grid">
             <div th:each="recommend: ${recommendAnime}">
+                <a th:href="${recommend.entry[0].url}" target="_blank">
                 <div class="anime-card">
                     <div class="anime-thumb">
                         <img th:src="${recommend.entry[0].images.jpg.largeImageUrl}" alt="anime-image" class="thumb-art"/>
                         <div class="anime-ep-badge">NEW EP</div>
-
                     </div>
                     <div class="anime-name" th:text="${recommend.entry[0].title}"></div>
                 </div>
+                </a>
             </div>
         </div>
     </section>
