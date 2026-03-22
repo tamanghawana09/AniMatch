@@ -120,8 +120,23 @@ nav {
      z-index: 2;
      max-width: 580px;
    }
-
-   .hero-badge {
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232,34,58,0.12);
+    border: 1px solid rgba(232,34,58,0.3);
+    color: #ff6b7a;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 1.6rem;
+    margin-top:3.6rem;
+}
+   .hero-badge-internal {
      display: inline-flex;
      align-items: center;
      gap: 8px;
@@ -135,6 +150,7 @@ nav {
      padding: 6px 14px;
      border-radius: 2px;
      margin-bottom: 1.6rem;
+       margin-top:3.6rem;
    }
    .badge-dot {
      width: 6px; height: 6px;
@@ -626,8 +642,8 @@ nav {
 /* ===== ANIME GRID ===== */
 .browse-anime-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 2rem;
 }
 
 /* ===== ANIME CARD ===== */
@@ -715,4 +731,36 @@ nav {
 .browse-hero-content {
   position: relative;
   z-index: 2;
+}
+
+.anime-card-link{
+    text-decoration: none;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.page-btn {
+    padding: 8px 16px;
+    background-color: #1d4ed8; /* nice blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.page-btn:hover {
+    background-color: #2563eb; /* slightly lighter blue */
+    transform: scale(1.05);
+}
+
+.page-number {
+    font-weight: bold;
+    color: #333;
 }

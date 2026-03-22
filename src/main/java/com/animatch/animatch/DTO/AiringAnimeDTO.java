@@ -12,7 +12,8 @@ import java.util.Date;
 @Setter
 public class AiringAnimeDTO {
 
-    public int mal_id;
+    @JsonProperty("mal_id")
+    public int malId;
     public String url;
     public Images images;
     public boolean approved;
@@ -25,7 +26,7 @@ public class AiringAnimeDTO {
     public Aired aired;
     public String duration;
     public String rating;
-    public double score;
+    public Double score;
     public Integer scored_by;
     public Integer rank;
     public Integer popularity;

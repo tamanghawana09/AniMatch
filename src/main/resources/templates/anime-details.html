@@ -1,23 +1,137 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Anime Details</title>
+    <title>AniMatch - Anime Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/anime.css}">
 </head>
 <body>
+    <nav>
+        <div class="logo"><a class="logo-design" th:href="@{/}">AniMatch</a></div>
+        <ul class="nav-links">
+            <li><a th:href="@{/browse}">Browse</a></li>
+            <li><a th:href="@{/airing}">Airing</a></li>
+            <li><a th:href="@{/upcoming}">Upcoming</a></li>
+            <li><a th:href="@{/magazines}">Magazines</a></li>
 
-<h1 th:text="${anime.title}"></h1>
+        </ul>
+        <div class="nav-right">
+            <button class="btn-search">⌕</button>
+            <button class="btn-primary">Start Watching</button>
+        </div>
+    </nav>
 
-<img th:src="${anime.imageUrl}" width="200"/>
+<div class="hero-banner">
+    <div class="banner-art">
+        <div class="banner-glow1"></div>
+        <div class="banner-glow2"></div>
+        <svg style="position:absolute;top:20px;right:420px;opacity:.15" width="180" height="180" viewBox="0 0 180 180"><circle cx="90" cy="90" r="88" fill="none" stroke="rgba(240,180,41,1)" stroke-width="1"/><circle cx="90" cy="90" r="65" fill="none" stroke="rgba(240,180,41,1)" stroke-width="0.5"/></svg>
+    </div>
+    <div class="banner-overlay"></div>
+    <div class="featured-card">
+        <div class="card-art">
+            <img th:src="${anime.images.jpg.largeImageUrl}" class="banner-char"/>
+        </div>
+    </div>
 
-<p th:text="${anime.synopsis}"></p>
+    <div class="hero-content">
+        <div class="anime-badges">
+            <span class="badge badge-rank" th:text="'★ #'+${anime.rank} + ' All Time'"></span>
 
-<p>Episodes: <span th:text="${anime.episodes}"></span></p>
+            <div th:each="genre: ${anime.genres}">
+                <span class="badge badge-genre" th:text="${genre.name}">Fantasy</span>
+            </div>
 
-<p>Score: <span th:text="${anime.score}"></span></p>
+        </div>
+        <h1 class="anime-title" th:text="${anime.title}"></h1>
+        <div class="anime-title-jp" th:text="${anime.titleJapanese}">天剣クロニクルズ · Tenken Kuronikuruzu</div>
+        <div class="meta-row">
+            <div class="rating-big">
+                <div class="rating-num" th:text="${anime.score}">9.4</div>
+                <div>
+                    <div class="rating-stars">★★★★★</div>
+                    <div class="rating-count" th:text="${anime.rating}">48,291 ratings</div>
+                </div>
+            </div>
+            <div class="meta-sep"></div>
+            <div class="meta-item"><div class="meta-label" >Episodes</div><div class="meta-val" th:text="${anime.episodes}"></div></div>
+            <div class="meta-sep"></div>
+            <div class="meta-item"><div class="meta-label">Studio</div><div class="meta-val" th:text="${anime.studios[0].name}">Lunar Works</div></div>
+            <div class="meta-sep"></div>
+            <div class="meta-item"><div class="meta-label">Season</div><div class="meta-val" th:text="${anime.season}">Winter 2024</div></div>
+            <div class="meta-sep"></div>
+            <div class="meta-item"><div class="meta-label">Status</div><div class="meta-val" style="color:#50d890" th:text="${anime.status}">Completed</div></div>
+        </div>
+        <p class="anime-desc"
+           th:text="${anime.synopsis != null} ? ${#strings.substring(anime.synopsis, 0, anime.synopsis.length() > 200 ? 200 : anime.synopsis.length()) + (anime.synopsis.length() > 200 ? '...' : '')} : ''">
+        </p>
+    </div>
+</div>
+<div class="main-layout">
+    <div class="content-left">
+        <div class="trailer-container" th:if="${anime.trailer.embedUrl != null}">
+            <iframe
+                    th:src="@{${anime.trailer.embedUrl}}"
+                    frameborder="0"
+                    allowfullscreen>
+            </iframe>
+        </div>
+        <div class="sec-title" style="margin-top:2.5rem">Main Characters</div>
+        <div class="chars-grid">
+            <div class="char-card" th:each="chara : ${character}">
+                <div class="char-art" style="background:linear-gradient(160deg,#0d0520,#2d1060)">
+                    <img th:src="${chara.character.images.jpg.imageUrl}" alt="Character Image"/>
+                </div>
+                <div class="char-info-strip"><div class="char-name" th:text="${chara.character.name}">Kael Dawnblade</div></div>
+            </div>
+        </div>
+        <div class="sec-title" style="margin-top:.5rem">You May Also Like</div>
+        <div class="related-grid" >
+            <div class="rel-card" th:each="anime: ${animeList}">
+                <a class="anime-card-link" th:href="@{'/anime/'+${anime.entry[0].malId}}">
+                    <div class="rel-thumb"><img th:src="${anime.entry[0].images.jpg.largeImageUrl}"/></div>
+                    <div class="rel-name" th:text="${anime.entry[0].title}">Azure Code: Genesis</div>
+                </a>
 
-<p>Status: <span th:text="${anime.status}"></span></p>
-
-<p>Season: <span th:text="${anime.season}"></span></p>
-
+            </div>
+        </div>
+    </div>
+    <div class="sidebar">
+        <div class="info-card">
+            <div class="info-card-thumb">
+                <div class="info-card-thumb-inner">
+                    <img th:src="${anime.images.jpg.largeImageUrl}"/>
+                </div>
+            </div>
+            <div class="info-stats-row">
+                <div class="info-stat"><div class="info-stat-val gold" th:text="${anime.score}">9.4</div><div class="info-stat-label">Score</div></div>
+                <div class="info-stat"><div class="info-stat-val" th:text="'#'+${anime.rank}">#2</div><div class="info-stat-label">All Time</div></div>
+                <div class="info-stat"><div class="info-stat-val" th:text="${anime.members}">48K</div><div class="info-stat-label">Members</div></div>
+                <div class="info-stat"><div class="info-stat-val" th:text="${anime.status}">Done</div><div class="info-stat-label">Status</div></div>
+            </div>
+            <div class="info-body">
+                <div class="info-row"><span class="info-key">Type</span><span class="info-value" th:text="${anime.type}">TV Series</span></div>
+                <div class="info-row"><span class="info-key">Episodes</span><span class="info-value" th:text="${anime.episodes}">24</span></div>
+                <div class="info-row"><span class="info-key">Duration</span><span class="info-value" th:text="${anime.duration}">~24 min/ep</span></div>
+                <div class="info-row"><span class="info-key">Aired</span><span class="info-value" th:text="${anime.aired.formattedAired}">Jan – Jun 2024</span></div>
+                <div class="info-row"><span class="info-key">Studio</span><span class="info-value" style="color:#7aabff" th:text="${#lists.isEmpty(anime.studios) ? 'No studio info' : anime.studios[0].name}">Lunar Works</span></div>
+                <div class="info-row"><span class="info-key">Source</span><span class="info-value" th:text="${anime.source}">Light Novel</span></div>
+                <div class="info-row"><span class="info-key">Rating</span><span class="info-value" th:text="${anime.rating}">PG-13</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="divider"></div>
+    <footer class="footer-strip">
+        <div class="footer-logo">AniMatch</div>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Support</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Careers</a>
+        </div>
+        <div style="font-size:0.75rem;color:rgba(232,230,240,0.2);">© 2026 AniMatch Inc.<span> By Hawana 🔥</span></div>
+    </footer>
 </body>
 </html>

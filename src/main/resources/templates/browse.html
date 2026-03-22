@@ -20,30 +20,49 @@
             <button class="btn-search">⌕</button>
             <button class="btn-primary">Start Watching</button>
         </div>
-    </nav>
+          </nav>
     <section class="browse-hero">
         <div class="hero-bg"></div>
         <div class="browse-hero-content">
-            <div class="hero-badge">
+            <div class="hero-badge-internal">
                 <div class="badge-dot"></div>
                 EXPLORE THE COLLECTION
             </div>
             <h1 class="browse-title">Browse <span>Anime</span></h1>
             <div class="browse-anime-grid">
                 <div class="browse-anime-card" th:each="anime : ${animeList}">
-                    <div class="browse-anime-thumb">
-                        <img th:src="${anime.images.jpg.largeImageUrl}" th:alt="${anime.title}" />
-                        <div class="browse-anime-rating-badge" th:classappend="${anime.score == null} ? 'no-score'">
-                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            <span th:text="${anime.score} ?: 'N/A'"></span>
+                    <a class="anime-card-link" th:href="@{'/anime/'+${anime.malId}}">
+                        <div class="browse-anime-thumb">
+                            <img th:src="${anime.images.jpg.largeImageUrl}" th:alt="${anime.title}" />
+                            <div class="browse-anime-rating-badge" th:classappend="${anime.score == null} ? 'no-score'">
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <span th:text="${anime.score} ?: 'N/A'"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="browse-anime-info">
-                        <div class="browse-anime-name" th:text="${anime.title}"></div>
-                    </div>
+                        <div class="browse-anime-info">
+                            <div class="browse-anime-name" th:text="${anime.title}"></div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
+    <div class="pagination">
+        <a th:if="${hasPrevPage}" th:href="@{/browse(page=${currentPage - 1})}" class="page-btn">Previous</a>
+        <span class="page-number">Page <span th:text="${currentPage}">1</span></span>
+        <a th:if="${hasNextPage}" th:href="@{/browse(page=${currentPage + 1})}" class="page-btn">Next</a>
+    </div>
+    <div class="divider"></div>
+    <footer class="footer-strip">
+        <div class="footer-logo">AniMatch</div>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Support</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Careers</a>
+        </div>
+        <div style="font-size:0.75rem;color:rgba(232,230,240,0.2);">© 2026 AniMatch Inc.<span> By Hawana 🔥</span></div>
+    </footer>
 </body>
 </html>

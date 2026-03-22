@@ -26,6 +26,4 @@ public class RecommendationServiceImpl implements RecommendationService {
 
         return response.getData();
     }
-
-
 }

@@ -34,11 +34,6 @@
             <p class="hero-desc" th:text="${#strings.substring(heroAnime.synopsis, 0, 200) + '...'}">
             </p>
             <div class="hero-actions">
-
-                <a class="btn-watch">
-                    <div class="play-icon"></div>
-                    Watch Now
-                </a>
                 <a class="btn-outline logo-design" th:href="${heroAnime.url}" target="_blank">Browse Catalog</a>
             </div>
             <div class="hero-stats">
@@ -104,7 +99,7 @@
         </div>
         <div class="anime-grid">
             <div th:each="recommend: ${recommendAnime}">
-                <a th:href="${recommend.entry[0].url}" target="_blank">
+                <a class="anime-card-link" th:href="@{'/anime/'+${recommend.entry[0].malId}}">
                 <div class="anime-card">
                     <div class="anime-thumb">
                         <img th:src="${recommend.entry[0].images.jpg.largeImageUrl}" alt="anime-image" class="thumb-art"/>

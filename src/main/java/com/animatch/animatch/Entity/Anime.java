@@ -31,6 +31,7 @@ public class Anime {
     private String season;
     private Integer year;
 
+
     @ManyToMany
     @JoinTable(
             name="anime_genres",

@@ -1,5 +1,7 @@
 package com.animatch.animatch.Controller;
 
+import com.animatch.animatch.DTO.AnimeDTO;
+import com.animatch.animatch.DTO.AnimeListResponse;
 import com.animatch.animatch.DTO.RecommendationDTO;
 import com.animatch.animatch.DTO.TopAnimeDTO;
 import com.animatch.animatch.Entity.Genre;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +43,7 @@ public class HomeController {
     public String getDashboard(Model model){
 
         List<TopAnimeDTO> topList = topAnimeService.showTopAnime();
-        TopAnimeDTO heroAnime = topList.get(new Random().nextInt(Math.min(30, topList.size())));
+        TopAnimeDTO heroAnime = topList.get(new Random().nextInt(Math.min(10, topList.size())));
 
         List<RecommendationDTO> topRecommendation = recommendationService.showRecommendation();
 
@@ -58,8 +61,15 @@ public class HomeController {
         return "dashboard";
     }
     @GetMapping("/browse")
-    public String browse(Model model) {
-        model.addAttribute("animeList", animeListService.browse());
+    public String browse(@RequestParam(defaultValue = "1") int page, Model model) {
+        AnimeListResponse response = animeListService.browse(page);
+        List<AnimeDTO> anime = response.getData();
+        Collections.shuffle(anime);
+
+        model.addAttribute("animeList", anime);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("hasNextPage", response.getPagination().getHasNextPage());
+        model.addAttribute("hasPrevPage", page > 1);
         return "browse";
     }
 
