@@ -16,10 +16,7 @@ public class WebClientConfig {
                 .build();
     }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+
 
 
 }

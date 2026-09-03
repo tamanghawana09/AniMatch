@@ -18,7 +18,7 @@ public class UpComingServiceImpl implements UpComingService {
     @Override
     public List<UpComingDTO> showUpComingAnime(){
         UpComingResponse response = restTemplate.getForObject(
-                "https://api.jikan.moe/v4/top/anime?filter=upcoming",
+                "https://api.jikan.moe/v4/top/anime",
                 UpComingResponse.class
         );
         if(response == null || response.getData() == null) return List.of();

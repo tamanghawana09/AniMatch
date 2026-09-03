@@ -1,27 +1,109 @@
 package com.animatch.animatch.Service;
 
+import com.animatch.animatch.Configuration.WebClientConfig;
 import com.animatch.animatch.DTO.AiringAnimeDTO;
 import com.animatch.animatch.DTO.AiringAnimeResponse;
 import com.animatch.animatch.Interface.AiringAnimeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
 @Service
 public class AiringAnimeServiceImpl implements AiringAnimeService {
-    @Autowired
-    private RestTemplate restTemplate;
+
+    private final RestTemplate restTemplate;
+
+    private final WebClient webClient;
+
+    public AiringAnimeServiceImpl(RestTemplate restTemplate, WebClient webClient){
+        this.restTemplate = restTemplate;
+        this.webClient = webClient;
+    }
+
 
     @Override
-    public List<AiringAnimeDTO> showAiringAnime(){
-        AiringAnimeResponse response = restTemplate.getForObject(
-          "https://api.jikan.moe/v4/top/anime?filter=airing",
-                AiringAnimeResponse.class
-        );
-        if(response == null || response.getData() == null) return List.of();
+    public List<AiringAnimeDTO> showAiringAnime() {
 
-        return response.getData();
+        String url =
+                "https://api.jikan.moe/v4/top/anime";
+
+        for (int attempt = 1; attempt <= 3; attempt++) {
+
+            try {
+
+                System.out.println(
+                        "Calling Jikan: "
+                                + url
+                                + " | attempt "
+                                + attempt
+                );
+
+                AiringAnimeResponse response =
+                        restTemplate.getForObject(
+                                url,
+                                AiringAnimeResponse.class
+                        );
+
+                if (response == null) {
+                    System.err.println(
+                            "Jikan returned null response"
+                    );
+                    continue;
+                }
+
+                if (response.getData() == null) {
+                    System.err.println(
+                            "Jikan response.data is null"
+                    );
+                    continue;
+                }
+
+                System.out.println(
+                        "Airing anime received: "
+                                + response.getData().size()
+                );
+
+                return response.getData();
+
+            } catch (HttpStatusCodeException e) {
+
+                System.err.println(
+                        "Jikan HTTP error: "
+                                + e.getStatusCode()
+                );
+
+                System.err.println(
+                        "Response body: "
+                                + e.getResponseBodyAsString()
+                );
+
+            } catch (RestClientException e) {
+
+                System.err.println(
+                        "Jikan request/deserialization error:"
+                );
+
+                e.printStackTrace();
+            }
+
+            if (attempt < 3) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        }
+
+        System.err.println(
+                "Jikan airing failed after 3 attempts"
+        );
+
+        return List.of();
     }
 }

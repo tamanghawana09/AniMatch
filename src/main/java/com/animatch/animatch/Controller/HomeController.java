@@ -74,8 +74,18 @@ public class HomeController {
     }
 
     @GetMapping("/airing")
-    public String airing(Model model){
-        model.addAttribute("airingAnime", airingAnimeService.showAiringAnime());
+    public String airing(Model model) {
+        try {
+            model.addAttribute("airingAnime", airingAnimeService.showAiringAnime());
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            model.addAttribute("airingAnime", Collections.emptyList());
+            model.addAttribute(
+                    "error",
+                    "Unable to load airing anime right now."
+            );
+        }
         return "airing";
     }
     @GetMapping("/magazines")

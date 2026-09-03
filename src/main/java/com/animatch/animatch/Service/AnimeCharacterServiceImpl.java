@@ -5,6 +5,7 @@ import com.animatch.animatch.DTO.CharacterResponse;
 import com.animatch.animatch.Interface.AnimeCharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -16,16 +17,31 @@ public class AnimeCharacterServiceImpl implements AnimeCharacterService {
 
     @Override
     public List<CharacterDTO> fetchAnimeCharacters(Long id){
-        CharacterResponse response = restTemplate.getForObject(
-                "https://api.jikan.moe/v4/anime/" + id + "/characters",
-                CharacterResponse.class
-        );
+        String url = "https://api.jikan.moe/v4/anime/" + id + "/characters";
 
-        if(response == null || response.getData() == null) return List.of();
+        try{
 
-        return response.getData().stream()
-                .filter(c -> "Main".equalsIgnoreCase(c.getRole()))
-                .toList();
+            CharacterResponse response = restTemplate.getForObject(
+                    url, CharacterResponse.class
+            );
+
+            if(response == null || response.getData() == null) return List.of();
+
+            return response.getData().stream()
+                    .filter(c -> "Main".equalsIgnoreCase(c.getRole()))
+                    .toList();
+
+        } catch (RestClientException e){
+            System.err.println("Failed to fetch characters for anime" + id);
+
+            System.err.println(
+                    "Jikan characters endpoint is currently unavailable."
+            );
+
+            return List.of();
+        }
+
+
     }
 
 }
