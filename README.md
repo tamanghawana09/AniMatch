@@ -56,7 +56,7 @@
 4. **Access the app locally**
 
    ```
-   http://localhost:8080
+   http://localhost:9090
    ```
 
 ---
