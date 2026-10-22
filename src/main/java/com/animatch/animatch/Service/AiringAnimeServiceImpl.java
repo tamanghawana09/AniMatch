@@ -29,14 +29,14 @@ public class AiringAnimeServiceImpl implements AiringAnimeService {
     public List<AiringAnimeDTO> showAiringAnime() {
 
         String url =
-                "https://api.jikan.moe/v4/top/anime";
+                "https://api.tenrai.org/v1/top/anime";
 
         for (int attempt = 1; attempt <= 3; attempt++) {
 
             try {
 
                 System.out.println(
-                        "Calling Jikan: "
+                        "Calling Tenrai: "
                                 + url
                                 + " | attempt "
                                 + attempt
@@ -50,14 +50,14 @@ public class AiringAnimeServiceImpl implements AiringAnimeService {
 
                 if (response == null) {
                     System.err.println(
-                            "Jikan returned null response"
+                            "Tenrai returned null response"
                     );
                     continue;
                 }
 
                 if (response.getData() == null) {
                     System.err.println(
-                            "Jikan response.data is null"
+                            "Tenrai response.data is null"
                     );
                     continue;
                 }
@@ -72,7 +72,7 @@ public class AiringAnimeServiceImpl implements AiringAnimeService {
             } catch (HttpStatusCodeException e) {
 
                 System.err.println(
-                        "Jikan HTTP error: "
+                        "Tenrai HTTP error: "
                                 + e.getStatusCode()
                 );
 
@@ -84,7 +84,7 @@ public class AiringAnimeServiceImpl implements AiringAnimeService {
             } catch (RestClientException e) {
 
                 System.err.println(
-                        "Jikan request/deserialization error:"
+                        "Tenrai request/deserialization error:"
                 );
 
                 e.printStackTrace();
@@ -101,7 +101,7 @@ public class AiringAnimeServiceImpl implements AiringAnimeService {
         }
 
         System.err.println(
-                "Jikan airing failed after 3 attempts"
+                "Tenria airing failed after 3 attempts"
         );
 
         return List.of();

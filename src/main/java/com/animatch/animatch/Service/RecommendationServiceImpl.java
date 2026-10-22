@@ -18,7 +18,7 @@ public class RecommendationServiceImpl implements RecommendationService {
     @Override
     public List<RecommendationDTO> showRecommendation(){
         RecommendationResponse response = restTemplate.getForObject(
-                "https://api.jikan.moe/v4/recommendations/anime",
+                "https://api.tenrai.org/v1/recommendations/anime",
                         RecommendationResponse.class
         );
 

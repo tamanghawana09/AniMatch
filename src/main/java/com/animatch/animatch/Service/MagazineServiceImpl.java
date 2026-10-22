@@ -17,7 +17,7 @@ public class MagazineServiceImpl implements MagazineService {
     @Override
     public List<MagazineDTO> showMagazines(){
         MagazineResponse response = restTemplate.getForObject(
-                "https://api.jikan.moe/v4/magazines",
+                "https://api.tenrai.org/v1/magazines",
                 MagazineResponse.class
         );
         if(response == null || response.getData() == null) return List.of();

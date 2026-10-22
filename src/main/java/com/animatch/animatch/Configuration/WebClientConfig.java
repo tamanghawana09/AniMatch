@@ -12,7 +12,7 @@ public class WebClientConfig {
     @Bean
     public WebClient webClient(){
         return WebClient.builder()
-                .baseUrl("https://api.jikan.moe/v4")
+                .baseUrl("https://api.tenrai.org/v1")
                 .build();
     }
 

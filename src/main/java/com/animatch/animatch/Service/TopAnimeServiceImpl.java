@@ -18,7 +18,7 @@ public class TopAnimeServiceImpl implements TopAnimeService {
     @Override
     public List<TopAnimeDTO> showTopAnime(){
         TopAnimeResponse response = restTemplate.getForObject(
-                "https://api.jikan.moe/v4/top/anime",
+                "https://api.tenrai.org/v1/top/anime",
                 TopAnimeResponse.class);
         if(response == null || response.getData() == null) return List.of();
 

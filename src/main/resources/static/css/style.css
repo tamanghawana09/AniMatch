@@ -764,7 +764,3 @@ nav {
     font-weight: bold;
     color: #333;
 }
-
-.nav-links li:last-child {
-    display: none;
-}

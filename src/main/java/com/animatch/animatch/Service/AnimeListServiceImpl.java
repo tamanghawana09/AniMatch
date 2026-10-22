@@ -19,7 +19,7 @@ public class AnimeListServiceImpl implements AnimeListService {
     private RestTemplate restTemplate;
 
 
-    private final String BASE_URL = "https://api.jikan.moe/v4";
+    private final String BASE_URL = "https://api.tenrai.org/v1";
 
     private static final int MAX_ATTEMPTS = 3;
 
@@ -34,13 +34,13 @@ public class AnimeListServiceImpl implements AnimeListService {
             try {
 
                 System.out.println(
-                        "Calling Jikan: " + url +
+                        "Calling Tenrai: " + url +
                                 " | attempt " + attempt
                 );
                 AnimeListResponse response =
                         restTemplate.getForObject(url, AnimeListResponse.class);
 
-                System.out.println("Jikan response received");
+                System.out.println("Tenrai response received");
 
                 if (response != null) {
                     return response;
@@ -49,7 +49,7 @@ public class AnimeListServiceImpl implements AnimeListService {
             } catch (RestClientException e) {
 
                 System.out.println(
-                        "Jikan failed attempt " + attempt + "/" + MAX_ATTEMPTS
+                        "Tenrai failed attempt " + attempt + "/" + MAX_ATTEMPTS
                 );
                 if (attempt == MAX_ATTEMPTS) {
                     e.printStackTrace();

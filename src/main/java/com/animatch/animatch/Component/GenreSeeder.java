@@ -16,7 +16,7 @@ public class GenreSeeder implements CommandLineRunner {
     @Autowired
     private GenreRepository genreRepository;
 
-    private static final String GENRE_URL = "https://api.jikan.moe/v4/genres/anime";
+    private static final String GENRE_URL = "https://api.tenrai.org/v1/genres/anime";
     @Override
     public void run(String... args) {
         if (genreRepository.count() > 0) {
@@ -28,7 +28,7 @@ public class GenreSeeder implements CommandLineRunner {
         GenreResponse response = restTemplate.getForObject(GENRE_URL, GenreResponse.class);
 
         if (response == null || response.getData() == null) {
-            System.out.println(">>> Failed to fetch genres from Jikan.");
+            System.out.println(">>> Failed to fetch genres from Tenrai.");
             return;
         }
 

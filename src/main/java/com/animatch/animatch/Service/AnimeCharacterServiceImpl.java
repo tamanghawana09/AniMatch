@@ -17,7 +17,7 @@ public class AnimeCharacterServiceImpl implements AnimeCharacterService {
 
     @Override
     public List<CharacterDTO> fetchAnimeCharacters(Long id){
-        String url = "https://api.jikan.moe/v4/anime/" + id + "/characters";
+        String url = "https://api.tenrai.org/v1/anime/" + id + "/characters";
 
         try{
 
@@ -35,7 +35,7 @@ public class AnimeCharacterServiceImpl implements AnimeCharacterService {
             System.err.println("Failed to fetch characters for anime" + id);
 
             System.err.println(
-                    "Jikan characters endpoint is currently unavailable."
+                    "Tenrai characters endpoint is currently unavailable."
             );
 
             return List.of();
